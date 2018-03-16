@@ -5,7 +5,7 @@
 //  Created by Greg Anderson on 3/15/18.
 //  Copyright © 2018 Planet Beagle. All rights reserved.
 
-import Foundation
+import UIKit
 
 enum NetworkAPIEndpoint:String {
     case topRated = "/movie/top_rated"
@@ -18,17 +18,20 @@ class NetworkAPI {
     static var apiKey:String? = "98cbf0f2b453fbd3e9472ffdf3ed8916"
     static let apiBaseURL = "https://api.themoviedb.org"
     static let apiVersion = "3"
-    static var apiURL: String {
-        return "\(apiBaseURL)/\(apiVersion)"
-    }
+    static var apiURL: String { return "\(apiBaseURL)/\(apiVersion)" }
+    // TODO: Use the "configuration" API endpoint to get the latest base url and
+    // supported widths for poster images.  I'm just hardcoding it here now.
+    static let graphicsBaseURL = "https://image.tmdb.org/t/p/w92"
     
+    // Set the Movie DB's API key
     public static func setAuthenticationParameters (apiKey: String) {
         self.apiKey = apiKey
     }
     
+    // Grab the current list of movies of the chosen type; return a MovieList object.
     public static func getMoviesFromAPI (listType: NetworkAPIEndpoint,
                                          completion: @escaping (MovieList?, HTTPURLResponse?, NSError?) -> Void) {
-        request(function: listType) {
+        jsonRequest(function: listType) {
             (responseJSON, httpResponse, APIerror) in
 
             var error = APIerror
@@ -51,12 +54,11 @@ class NetworkAPI {
                 error = NSError(domain: message, code: -4, userInfo: nil)
             }
             
-            // HERE: CONVERT JSON TO OBJECTS AND PASS THOSE TO COMPLETION INSTEAD OF JSON
-            let data = json.data(using: String.Encoding.utf8)!
+            // Convert our JSON into model objects
             
             var movies: MovieList?
             do {
-                movies = try MovieList.decode(data: data)
+                movies = try MovieList.decode(data: json.data(using: String.Encoding.utf8)!)
             }
             catch DecodingError.dataCorrupted(let context) {
                 error = reportDecodingError(
@@ -100,14 +102,16 @@ class NetworkAPI {
         }
     }
     
+    // Print some info into the log to debug the json decoding problem; return an NSError
     static func reportDecodingError (message:String, context: DecodingError.Context?) -> NSError {
         print ("NetworkAPI: \(message)")
         context?.printCodingPath()
         return NSError(domain: message, code: -5, userInfo: nil)
     }
     
-    static func request(function: NetworkAPIEndpoint,
-                        completion: @escaping (String?, HTTPURLResponse?, NSError?) -> Void) {
+    // Make a GET API request to the chosen endpoint, returning json response.
+    static func jsonRequest(function: NetworkAPIEndpoint,
+                            completion: @escaping (String?, HTTPURLResponse?, NSError?) -> Void) {
         
         guard let apiKey = NetworkAPI.apiKey else {
                 completion (nil, nil,
@@ -155,6 +159,40 @@ class NetworkAPI {
         }
         task.resume()
     }
+    
+    // Fetch one poster image from the API and return it as a UIImage
+    public static func getPosterImageFromAPI (posterPath: String,
+                                              completion: @escaping (UIImage?, HTTPURLResponse?, NSError?) -> Void) {
+        
+        let urlString = NetworkAPI.graphicsBaseURL + posterPath
+        print ("HTTP GET Request to \(urlString):")
+        guard let url = URL(string: urlString) else {
+            completion (nil, nil,
+                        NSError(domain: "NetworkAPI", code: -2, userInfo: nil))
+            return
+        }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        
+        let session = URLSession(configuration: URLSessionConfiguration.ephemeral,
+                                 delegate: nil,
+                                 delegateQueue: OperationQueue.main)
+        
+        let task = session.dataTask(with: urlRequest) {
+            (data: Data?, response: URLResponse?, error: Error?) -> Void in
+            let e = error as NSError?, r = response as? HTTPURLResponse
+            if let jpegData = data {
+                completion(UIImage(data: jpegData), r, e)
+                return
+            }
+            else {
+                completion(nil, r, e)
+                return
+            }
+        }
+        task.resume()
+    }
+
 }
 
 // Nicely formatted JSON for printing in logs
