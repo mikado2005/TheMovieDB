@@ -54,6 +54,7 @@ class MovieListVC: UIViewController,
 //            cell.movieOverview.text = "Absolutely the funniest movie ever made, Airplane! is a rockin' spoof of airline disaster movies."
             cell.movieTitle.text = movie.title
             cell.movieOverview.text = movie.overview
+            cell.posterImagePath = movie.posterPath
         }
         return cell
     }
@@ -77,6 +78,20 @@ class MovieTableCell: UITableViewCell {
     @IBOutlet weak var moviePosterImage: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var movieOverview: UILabel!
+    
+    var posterImagePath: String? {
+        didSet {
+            if let path = posterImagePath {
+                NetworkAPI.getPosterImageFromAPI(posterPath: path) {
+                    [weak self](image, httpResponse, error) in
+                    if let posterImage = image, self != nil {
+                        self!.moviePosterImage.image = posterImage
+                    }
+                }
+            }
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
