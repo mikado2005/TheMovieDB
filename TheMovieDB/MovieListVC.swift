@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MovieListVC.swift
 //  TheMovieDB
 //
 //  Created by Greg Anderson on 3/15/18.
@@ -8,18 +8,17 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MovieListVC: UIViewController,
+                   UITabBarDelegate,
+                   UITableViewDelegate,
+                   UITableViewDataSource, {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-
 }
 
