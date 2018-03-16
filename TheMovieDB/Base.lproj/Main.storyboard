@@ -72,13 +72,13 @@
                                                     <rect key="frame" x="15" y="0.0" width="353" height="99.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="This is a long movie title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LEQ-wD-nse" userLabel="Title">
-                                                            <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="296" height="30"/>
                                                             <fontDescription key="fontDescription" name="Palatino-BoldItalic" family="Palatino" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="This is an even longer movie overview" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGA-td-HO3" userLabel="Overview">
-                                                            <rect key="frame" x="0.0" y="30" width="300" height="69.5"/>
+                                                            <rect key="frame" x="0.0" y="30" width="296" height="69.5"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -94,8 +94,8 @@
                                                         <constraint firstAttribute="bottom" secondItem="aGA-td-HO3" secondAttribute="bottom" id="yux-ut-gAi"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Rx-yx-k7S" userLabel="Poster Image View">
-                                                    <rect key="frame" x="315" y="0.0" width="60" height="99.5"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Rx-yx-k7S" userLabel="Poster Image View">
+                                                    <rect key="frame" x="313" y="0.0" width="60" height="99.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="vdw-dv-wRH"/>
                                                     </constraints>
@@ -106,10 +106,10 @@
                                                 <constraint firstItem="IBh-H5-6X4" firstAttribute="leading" secondItem="Ywd-vD-4h1" secondAttribute="leadingMargin" id="EN4-h9-cJQ"/>
                                                 <constraint firstItem="7Rx-yx-k7S" firstAttribute="top" secondItem="Ywd-vD-4h1" secondAttribute="top" id="GDF-Cj-Y0X"/>
                                                 <constraint firstItem="IBh-H5-6X4" firstAttribute="height" secondItem="Ywd-vD-4h1" secondAttribute="height" id="Ihj-ag-647"/>
-                                                <constraint firstAttribute="trailing" secondItem="7Rx-yx-k7S" secondAttribute="trailing" id="L64-CI-Ba5"/>
+                                                <constraint firstItem="7Rx-yx-k7S" firstAttribute="trailing" secondItem="Ywd-vD-4h1" secondAttribute="trailing" constant="-2" id="L64-CI-Ba5"/>
                                                 <constraint firstItem="IBh-H5-6X4" firstAttribute="top" secondItem="Ywd-vD-4h1" secondAttribute="top" id="L9G-CN-tEL"/>
-                                                <constraint firstItem="aGA-td-HO3" firstAttribute="trailing" secondItem="7Rx-yx-k7S" secondAttribute="leading" id="QRd-0G-8SY"/>
-                                                <constraint firstItem="LEQ-wD-nse" firstAttribute="trailing" secondItem="7Rx-yx-k7S" secondAttribute="leading" id="mmK-ut-X3c"/>
+                                                <constraint firstItem="aGA-td-HO3" firstAttribute="trailing" secondItem="7Rx-yx-k7S" secondAttribute="leading" constant="-2" id="QRd-0G-8SY"/>
+                                                <constraint firstItem="LEQ-wD-nse" firstAttribute="trailing" secondItem="7Rx-yx-k7S" secondAttribute="leading" constant="-2" id="mmK-ut-X3c"/>
                                                 <constraint firstAttribute="bottom" secondItem="7Rx-yx-k7S" secondAttribute="bottom" id="u2k-Y6-xhF"/>
                                             </constraints>
                                         </tableViewCellContentView>

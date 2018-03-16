@@ -50,8 +50,6 @@ class MovieListVC: UIViewController,
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieTableCell
         
         if let movie = movieLists[currentMovieListType]?.results?[indexPath.row] {
-//            cell.movieTitle.text = "Airplane!"
-//            cell.movieOverview.text = "Absolutely the funniest movie ever made, Airplane! is a rockin' spoof of airline disaster movies."
             cell.movieTitle.text = movie.title
             cell.movieOverview.text = movie.overview
             cell.posterImagePath = movie.posterPath
@@ -78,6 +76,8 @@ class MovieTableCell: UITableViewCell {
     @IBOutlet weak var moviePosterImage: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var movieOverview: UILabel!
+    
+    // TODO: Cache previously fetched poster images
     
     var posterImagePath: String? {
         didSet {
