@@ -34,8 +34,53 @@ class MovieListVC: UIViewController,
         mainTabBar.delegate = self
         mainTabBar.selectedItem = mainTabBar.items?[0]
         
+        // Customize our tab bar colors and fonts
+        styleTabBar()
+        
         // Hide empty cells in the table
         movieTable.tableFooterView = UIView(frame: .zero)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // A hack to work around a current iPhone X / iOS 11 bug:
+        // http://www.openradar.me/35098813
+        mainTabBar.invalidateIntrinsicContentSize()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // A hack to work around a current iPhone X / iOS 11 bug:
+        // http://www.openradar.me/35098813
+        mainTabBar.invalidateIntrinsicContentSize()
+    }
+
+    // Appearance customizations for our tab bar
+    func styleTabBar() {
+        let lightShadow = NSShadow()
+        lightShadow.shadowColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
+        lightShadow.shadowOffset = CGSize(width: 0.8, height: 0.8)
+        
+        let darkShadow = NSShadow()
+        darkShadow.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
+        darkShadow.shadowOffset = CGSize(width: 0.8, height: 0.8)
+        
+        let selectedColor = UIColor(red: 238/255, green: 255/255, blue: 206/255, alpha: 1.0)
+        let unSelectedColor = UIColor.gray
+        let tabBarFont = UIFont.boldSystemFont(ofSize: 14)
+        
+        for i in 0 ..< mainTabBar.items!.count {
+            mainTabBar.items![i].setTitleTextAttributes(
+                [NSAttributedStringKey.foregroundColor: unSelectedColor,
+                 NSAttributedStringKey.shadow: darkShadow,
+                 NSAttributedStringKey.font: tabBarFont],
+                for: .normal)
+            mainTabBar.items![i].setTitleTextAttributes(
+                [NSAttributedStringKey.foregroundColor: selectedColor,
+                 NSAttributedStringKey.shadow: darkShadow,
+                 NSAttributedStringKey.font: tabBarFont],
+                for: .selected)
+        }
     }
 
     // MARK: Movie API interaction
