@@ -16,6 +16,9 @@ class MovieListVC: UIViewController,
     @IBOutlet weak var movieTable: UITableView!
     @IBOutlet weak var mainTabBar: UITabBar!
     
+    var movieLists = [NetworkAPIEndpoint:MovieList]()
+    var currentMovieListType: NetworkAPIEndpoint = .nowPlaying
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,14 +30,24 @@ class MovieListVC: UIViewController,
         super.didReceiveMemoryWarning()
     }
     
+    // MARK: Movie API interaction
+    
+    func loadMovieLists() {
+        
+    }
+    
     // MARK: Table delegate functions
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieTableCell
-        cell.movieTitle.text = "Airplane!"
-        cell.movieOverview.text = "Absolutely the funniest movie ever made, Airplane! is a rockin' spoof of airline disaster movies."
-
+        
+        if let movie = movieLists[currentMovieListType]?.results?[indexPath.row] {
+//            cell.movieTitle.text = "Airplane!"
+//            cell.movieOverview.text = "Absolutely the funniest movie ever made, Airplane! is a rockin' spoof of airline disaster movies."
+            cell.movieTitle.text = movie.title
+            cell.movieOverview.text = movie.overview
+        }
         return cell
     }
     
@@ -43,7 +56,7 @@ class MovieListVC: UIViewController,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return movieLists[currentMovieListType]?.results?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
