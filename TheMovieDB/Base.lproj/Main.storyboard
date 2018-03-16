@@ -12,7 +12,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
         <array key="Palatino.ttc">
+            <string>Palatino-BoldItalic</string>
             <string>Palatino-Roman</string>
         </array>
     </customFonts>
@@ -26,10 +30,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSV-by-rsT">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Derald's Movies" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lqc-c0-uz6">
-                                        <rect key="frame" x="107.5" y="20" width="160.5" height="26.5"/>
+                                        <rect key="frame" x="107.5" y="23" width="160.5" height="26.5"/>
                                         <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="22"/>
                                         <color key="textColor" red="0.93288961199999998" green="1" blue="0.80948419549999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -40,7 +44,7 @@
                                 <color key="backgroundColor" red="0.1739984155" green="0.28868049379999999" blue="0.56212341789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Lqc-c0-uz6" firstAttribute="centerX" secondItem="gSV-by-rsT" secondAttribute="centerX" id="GcJ-tg-TwU"/>
-                                    <constraint firstAttribute="height" constant="50" id="zwo-ib-Ont"/>
+                                    <constraint firstAttribute="height" constant="54" id="zwo-ib-Ont"/>
                                 </constraints>
                             </view>
                             <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lde-ps-Ehj" userLabel="Search Type Tab Bar">
@@ -54,28 +58,28 @@
                                 </items>
                             </tabBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="72" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="r0q-ue-H52" userLabel="Movie Table">
-                                <rect key="frame" x="0.0" y="50" width="375" height="568"/>
+                                <rect key="frame" x="0.0" y="54" width="375" height="564"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieCell" rowHeight="72" id="2fR-lN-doc" customClass="MovieTableCell" customModule="TheMovieDB">
-                                        <rect key="frame" x="0.0" y="22" width="375" height="72"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieCell" rowHeight="100" id="2fR-lN-doc" customClass="MovieTableCell" customModule="TheMovieDB">
+                                        <rect key="frame" x="0.0" y="22" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2fR-lN-doc" id="Ywd-vD-4h1">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="71.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IBh-H5-6X4" userLabel="Title / Overview View">
-                                                    <rect key="frame" x="15" y="0.0" width="353" height="71.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="353" height="99.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="This is a long movie title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEQ-wD-nse" userLabel="Title">
-                                                            <rect key="frame" x="0.0" y="0.0" width="300" height="36"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="This is a long movie title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LEQ-wD-nse" userLabel="Title">
+                                                            <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
+                                                            <fontDescription key="fontDescription" name="Palatino-BoldItalic" family="Palatino" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="This is an even longer movie overview" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGA-td-HO3" userLabel="Overview">
-                                                            <rect key="frame" x="0.0" y="36" width="300" height="35.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="This is an even longer movie overview" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGA-td-HO3" userLabel="Overview">
+                                                            <rect key="frame" x="0.0" y="30" width="300" height="69.5"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -86,12 +90,12 @@
                                                         <constraint firstItem="aGA-td-HO3" firstAttribute="leading" secondItem="IBh-H5-6X4" secondAttribute="leading" id="WUb-0A-Uj1"/>
                                                         <constraint firstItem="aGA-td-HO3" firstAttribute="top" secondItem="LEQ-wD-nse" secondAttribute="bottom" id="gNz-4I-S7A"/>
                                                         <constraint firstItem="LEQ-wD-nse" firstAttribute="leading" secondItem="IBh-H5-6X4" secondAttribute="leading" id="mAM-oA-kNx"/>
-                                                        <constraint firstItem="LEQ-wD-nse" firstAttribute="height" secondItem="IBh-H5-6X4" secondAttribute="height" multiplier="0.5" id="oNn-SD-ufS"/>
+                                                        <constraint firstItem="LEQ-wD-nse" firstAttribute="height" secondItem="IBh-H5-6X4" secondAttribute="height" multiplier="0.3" id="oNn-SD-ufS"/>
                                                         <constraint firstAttribute="bottom" secondItem="aGA-td-HO3" secondAttribute="bottom" id="yux-ut-gAi"/>
                                                     </constraints>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Rx-yx-k7S" userLabel="Poster Image View">
-                                                    <rect key="frame" x="315" y="0.0" width="60" height="71.5"/>
+                                                    <rect key="frame" x="315" y="0.0" width="60" height="99.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="vdw-dv-wRH"/>
                                                     </constraints>
@@ -131,7 +135,7 @@
                             <constraint firstItem="gSV-by-rsT" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="ZLV-oF-y65"/>
                             <constraint firstItem="gSV-by-rsT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bbL-0b-2FL"/>
                             <constraint firstItem="r0q-ue-H52" firstAttribute="top" secondItem="gSV-by-rsT" secondAttribute="bottom" id="dkQ-i5-EWP"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="Lqc-c0-uz6" secondAttribute="top" id="fDW-EJ-COK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="Lqc-c0-uz6" secondAttribute="top" constant="-3" id="fDW-EJ-COK"/>
                             <constraint firstItem="lde-ps-Ehj" firstAttribute="top" secondItem="r0q-ue-H52" secondAttribute="bottom" id="fIo-g1-KGb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="r0q-ue-H52" secondAttribute="trailing" id="hhS-vX-ft9"/>
                             <constraint firstItem="lde-ps-Ehj" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="rG1-Rm-kus"/>
