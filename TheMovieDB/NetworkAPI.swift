@@ -7,12 +7,17 @@
 
 import UIKit
 
+// This defines the specific URL end components for our desired API calls
 enum NetworkAPIEndpoint:String {
     case topRated = "/movie/top_rated"
     case nowPlaying = "/movie/now_playing"
     case popular = "/movie/popular"
     case upcoming = "/movie/upcoming"
 }
+
+// This is a set of Network services which wrap the remote API.  This class isn't meant to
+// be instantiated, rather it's a collection of global vars and functions in a convenient
+// namespace.
 
 class NetworkAPI {
     static var apiKey:String? = "98cbf0f2b453fbd3e9472ffdf3ed8916"
@@ -45,7 +50,7 @@ class NetworkAPI {
                 return
             }
             
-            // Was out HTTP status ok?
+            // Was our HTTP status ok?
             if let response = httpResponse,
                 (response.statusCode < 200 || response.statusCode > 299) {
                 // Bad response from the API server
@@ -55,11 +60,13 @@ class NetworkAPI {
             }
             
             // Convert our JSON into model objects
-            
             var movies: MovieList?
             do {
                 movies = try MovieList.decode(data: json.data(using: String.Encoding.utf8)!)
             }
+            // All these catches are probably overkill, but all of these problems can occur when
+            // the JSON returned by an API doesn't match the Codable protocol's expectations
+            // and a model object cannot be instantiated properly.
             catch DecodingError.dataCorrupted(let context) {
                 error = reportDecodingError(
                     message: "DecodingError.dataCorrupted: \(context.debugDescription)",
@@ -109,20 +116,23 @@ class NetworkAPI {
         return NSError(domain: message, code: -5, userInfo: nil)
     }
     
-    // Make a GET API request to the chosen endpoint, returning json response.
+    // Make a GET API request to the chosen API endpoint, returning json response.
     static func jsonRequest(function: NetworkAPIEndpoint,
                             completion: @escaping (String?, HTTPURLResponse?, NSError?) -> Void) {
         
+        // We must have an api key for these requests
         guard let apiKey = NetworkAPI.apiKey else {
                 completion (nil, nil,
                             NSError(domain: "NetworkAPI", code: -1, userInfo: nil))
                 return
         }
 
+        // Build the complete URL
         var urlString = NetworkAPI.apiURL + function.rawValue
         urlString += "?api_key=\(apiKey)&language=en-US&page=1"
         print ("API Request to \(urlString):")
         
+        // See if it's kosher
         guard let url = URL(string: urlString) else {
             completion (nil, nil,
                         NSError(domain: "NetworkAPI", code: -2, userInfo: nil))
@@ -131,6 +141,7 @@ class NetworkAPI {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "GET"
 
+        // Create a URLSession and data task
         let session = URLSession(configuration: URLSessionConfiguration.ephemeral,
                                  delegate: nil,
                                  delegateQueue: OperationQueue.main)
@@ -138,6 +149,7 @@ class NetworkAPI {
         let task = session.dataTask(with: urlRequest) {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in
             
+            // When the task completes:
             if let jsonData = data {
                 print ("Received JSON:")
                 print (prettyPrintJSON(with: jsonData))
@@ -146,7 +158,7 @@ class NetworkAPI {
                 print ("Received no JSON in response")
             }
             
-            // Request callback function:
+            // Pass our json, response, and error back to the original caller
             let e = error as NSError?, r = response as? HTTPURLResponse
             if let d = data, let json = String(data: d, encoding: .utf8) {
                 completion(json, r, e)
@@ -157,6 +169,7 @@ class NetworkAPI {
                 return
             }
         }
+        // Start the data task
         task.resume()
     }
     
@@ -164,6 +177,7 @@ class NetworkAPI {
     public static func getPosterImageFromAPI (posterPath: String,
                                               completion: @escaping (UIImage?, HTTPURLResponse?, NSError?) -> Void) {
         
+        // Build our URL and request
         let urlString = NetworkAPI.graphicsBaseURL + posterPath
         print ("HTTP GET Request to \(urlString):")
         guard let url = URL(string: urlString) else {
@@ -174,12 +188,14 @@ class NetworkAPI {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "GET"
         
+        // Start a new URLSession data task
         let session = URLSession(configuration: URLSessionConfiguration.ephemeral,
                                  delegate: nil,
                                  delegateQueue: OperationQueue.main)
         
         let task = session.dataTask(with: urlRequest) {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in
+            // Pass our fetched jpg image back to the original caller
             let e = error as NSError?, r = response as? HTTPURLResponse
             if let jpegData = data {
                 completion(UIImage(data: jpegData), r, e)
@@ -190,9 +206,9 @@ class NetworkAPI {
                 return
             }
         }
+        // Start the data task
         task.resume()
     }
-
 }
 
 // Nicely formatted JSON for printing in logs

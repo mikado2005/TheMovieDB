@@ -8,6 +8,9 @@
 
 import Foundation
 
+// These objects mirror the Json objects returned by our API endpoints.
+
+// One movie, with the info we care about.
 public class MovieInfo: Codable {
     var title: String?
     var posterPath: String?
@@ -19,6 +22,7 @@ public class MovieInfo: Codable {
     }
 }
 
+// One list of movies
 public class MovieList: Codable {
     var page: Int?
     var totalResults: Int?
