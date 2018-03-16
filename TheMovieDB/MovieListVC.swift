@@ -21,6 +21,7 @@ class MovieListVC: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadMovieLists()
         
         // Hide empty cells in the table
         movieTable.tableFooterView = UIView(frame: .zero)
@@ -33,7 +34,13 @@ class MovieListVC: UIViewController,
     // MARK: Movie API interaction
     
     func loadMovieLists() {
-        
+        NetworkAPI.getMoviesFromAPI(listType: currentMovieListType) {
+            [weak self](movieList, httpResponse, error) in
+            if let movies = movieList, error == nil, self != nil {
+                self!.movieLists[self!.currentMovieListType] = movies
+                self!.movieTable.reloadData()
+            }
+        }
     }
     
     // MARK: Table delegate functions
