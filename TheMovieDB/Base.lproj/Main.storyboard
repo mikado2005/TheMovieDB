@@ -51,7 +51,9 @@
                                 <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
-                                    <tabBarItem title="Now Playing" id="gzB-K7-9Bh"/>
+                                    <tabBarItem title="Now Playing" id="gzB-K7-9Bh">
+                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                                    </tabBarItem>
                                     <tabBarItem title="Popular" id="fhn-03-Rwm"/>
                                     <tabBarItem title="Top Rated" id="Ep1-Gt-d0V"/>
                                     <tabBarItem title="Upcoming" id="h4D-Oi-3KZ"/>

@@ -18,10 +18,14 @@ class MovieListVC: UIViewController,
     
     var movieLists = [NetworkAPIEndpoint:MovieList]()
     var currentMovieListType: NetworkAPIEndpoint = .nowPlaying
+    let allMovieListTypes:[NetworkAPIEndpoint] =
+        [.nowPlaying, .popular, .topRated, .upcoming]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadMovieLists()
+        loadCurrentMovieList()
+        mainTabBar.delegate = self
+        mainTabBar.selectedItem = mainTabBar.items?[0]
         
         // Hide empty cells in the table
         movieTable.tableFooterView = UIView(frame: .zero)
@@ -33,13 +37,27 @@ class MovieListVC: UIViewController,
     
     // MARK: Movie API interaction
     
-    func loadMovieLists() {
+    // Grab the movie list for the currently selected movie list type.
+    // Set the loaded movie data into the table view.
+    func loadCurrentMovieList() {
         NetworkAPI.getMoviesFromAPI(listType: currentMovieListType) {
             [weak self](movieList, httpResponse, error) in
             if let movies = movieList, error == nil, self != nil {
                 self!.movieLists[self!.currentMovieListType] = movies
                 self!.movieTable.reloadData()
             }
+        }
+    }
+    
+    // MARK: Tab bar functions
+    
+    // User tapped on the tab bar
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        let indexOfTab = tabBar.items?.index(of: item) ?? 0
+        // TODO: Should we check if the tab has changed to avoid reload?
+        if indexOfTab < allMovieListTypes.count {
+            currentMovieListType = allMovieListTypes[indexOfTab]
+            loadCurrentMovieList()
         }
     }
     
